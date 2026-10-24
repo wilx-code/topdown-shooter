@@ -4,6 +4,7 @@ namespace SpriteKind {
     export const rifle = SpriteKind.create()
     export const nothin = SpriteKind.create()
     export const tempimage = SpriteKind.create()
+    export const pistol = SpriteKind.create()
 }
 browserEvents.onWheel(function (dx, dy, dz) {
     if (dy < 0) {
@@ -40,22 +41,37 @@ browserEvents.onWheel(function (dx, dy, dz) {
     }
 })
 browserEvents.R.onEvent(browserEvents.KeyEvent.Pressed, function () {
-    if (!(mag_ammo == 30)) {
-        if (!(browserEvents.MouseLeft.isPressed())) {
-            if (!(reloading)) {
-                subtraction = 30 - mag_ammo
-                if (total_ammo >= subtraction) {
-                    speed = 15
-                    reloading = true
-                    timer.after(2000, function () {
-                        reloading = false
-                        mag_ammo = 30
-                        total_ammo += 0 - subtraction
-                    })
+    if (!(browserEvents.MouseLeft.isPressed())) {
+        if (!(reloading)) {
+            if (toolbar.get_number(ToolbarNumberAttribute.SelectedIndex) == 0) {
+                if (!(riflemag_ammo == 30)) {
+                    riflesubtraction = 30 - riflemag_ammo
+                    if (rifletotal_ammo >= riflesubtraction) {
+                        speed = 15
+                        reloading = true
+                        timer.after(2000, function () {
+                            reloading = false
+                            riflemag_ammo = 30
+                            rifletotal_ammo += 0 - riflesubtraction
+                        })
+                    }
+                } else {
+                	
+                }
+            } else {
+                if (!(pistolmag_ammo == 18)) {
+                    pistolsubtraction = 18 - pistolmag_ammo
+                    if (pistoltotal_ammo >= pistolsubtraction) {
+                        speed = 15
+                        reloading = true
+                        timer.after(2000, function () {
+                            reloading = false
+                            pistolmag_ammo = 30
+                            pistoltotal_ammo += 0 - pistolsubtraction
+                        })
+                    }
                 }
             }
-        } else {
-        	
         }
     } else {
     	
@@ -68,12 +84,15 @@ let dg = 0
 let explosiongsprite: Sprite = null
 let rifleprojectile: Sprite = null
 let issprinting = false
-let subtraction = 0
+let pistolsubtraction = 0
+let riflesubtraction = 0
 let reloading = false
 let toolbar: Inventory.Toolbar = null
+let pistolmag_ammo = 0
+let pistoltotal_ammo = 0
 let speed = 0
-let mag_ammo = 0
-let total_ammo = 0
+let riflemag_ammo = 0
+let rifletotal_ammo = 0
 let emptypic: Sprite = null
 let f1pic: Sprite = null
 let gsh18pic: Sprite = null
@@ -164,11 +183,11 @@ gsh18pic = sprites.create(img`
     ..............................
     ..............................
     ..............................
-    ..........ccccccccccccccc.....
+    ..............................
     ........bbccccccccccccccc.....
     .......bbbccccccccccccccc.....
-    .......bbbccccccccccccccc.....
-    .......bbbbbbfff..............
+    .......bbbbbbc................
+    .......bbbbbb.................
     .......bbbbbb.................
     ........bbbb..................
     ..............................
@@ -246,15 +265,11 @@ emptypic = sprites.create(img`
     ..............................
     ..............................
     `, SpriteKind.tempimage)
-total_ammo = 150
-mag_ammo = 30
+rifletotal_ammo = 150
+riflemag_ammo = 30
 speed = 40
-let totalammotext = textsprite.create("Ammo:" + convertToText(total_ammo))
-let magammotext = textsprite.create("Mag:" + convertToText(mag_ammo))
-magammotext.setPosition(250, 25)
-totalammotext.setPosition(250, 15)
-totalammotext.setFlag(SpriteFlag.RelativeToCamera, true)
-magammotext.setFlag(SpriteFlag.RelativeToCamera, true)
+pistoltotal_ammo = 54
+pistolmag_ammo = 18
 let canshoot = true
 let item = Inventory.create_item("AK-47", img`
     . . . . . . . . . . . . . . . . 
@@ -312,6 +327,10 @@ let item3 = Inventory.create_item("F-1", img`
     `)
 let toolbarlist = [item, item2, item3]
 toolbar = Inventory.create_toolbar(toolbarlist, 3)
+emptypic.setFlag(SpriteFlag.Invisible, true)
+akpic.setFlag(SpriteFlag.Invisible, false)
+f1pic.setFlag(SpriteFlag.Invisible, true)
+gsh18pic.setFlag(SpriteFlag.Invisible, true)
 forever(function () {
     if (browserEvents.LeftShift.isPressed()) {
         if (!(reloading)) {
@@ -329,8 +348,8 @@ forever(function () {
     if (browserEvents.MouseLeft.isPressed()) {
         if (!(reloading)) {
             if (canshoot) {
-                if (true) {
-                    if (mag_ammo > 0) {
+                if (toolbar.get_number(ToolbarNumberAttribute.SelectedIndex) == 0) {
+                    if (riflemag_ammo > 0) {
                         if (issprinting) {
                             rifleprojectile = sprites.create(img`
                                 . . . . . 
@@ -391,12 +410,82 @@ forever(function () {
                         akpic
                         )
                         extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 100, 20, 5)
-                        mag_ammo += -1
+                        riflemag_ammo += -1
                         canshoot = false
                         timer.after(100, function () {
                             canshoot = true
                         })
                     }
+                } else if (toolbar.get_number(ToolbarNumberAttribute.SelectedIndex) == 1) {
+                    if (pistolmag_ammo > 0) {
+                        if (issprinting) {
+                            rifleprojectile = sprites.create(img`
+                                . . . . . 
+                                . . . . . 
+                                c c c c c 
+                                . . . . . 
+                                . . . . . 
+                                `, SpriteKind.pistol)
+                            spriteutils.placeAngleFrom(
+                            rifleprojectile,
+                            spriteutils.angleFrom(akpic, mouse),
+                            14,
+                            akpic
+                            )
+                            transformSprites.rotateSprite(rifleprojectile, spriteutils.radiansToDegrees(spriteutils.angleFrom(akpic, mouse)) + randint(-3.5, 3.5))
+                            spriteutils.setVelocityAtAngle(rifleprojectile, spriteutils.angleFrom(akpic, mouse) + spriteutils.degreesToRadians(randint(-3.5, 3.5)), 300)
+                        } else {
+                            rifleprojectile = sprites.create(img`
+                                . . . . . 
+                                . . . . . 
+                                c c c c c 
+                                . . . . . 
+                                . . . . . 
+                                `, SpriteKind.rifle)
+                            spriteutils.placeAngleFrom(
+                            rifleprojectile,
+                            spriteutils.angleFrom(akpic, mouse),
+                            14,
+                            akpic
+                            )
+                            transformSprites.rotateSprite(rifleprojectile, spriteutils.radiansToDegrees(spriteutils.angleFrom(akpic, mouse)) + randint(-1, 1))
+                            spriteutils.setVelocityAtAngle(rifleprojectile, spriteutils.angleFrom(akpic, mouse) + spriteutils.degreesToRadians(randint(-1, 1)), 300)
+                        }
+                        rifleprojectile.setFlag(SpriteFlag.AutoDestroy, false)
+                        scene.cameraShake(2, 200)
+                        explosiongsprite = sprites.create(img`
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            `, SpriteKind.nothin)
+                        spriteutils.placeAngleFrom(
+                        explosiongsprite,
+                        spriteutils.angleFrom(akpic, mouse),
+                        14,
+                        akpic
+                        )
+                        extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 100, 20, 5)
+                        riflemag_ammo += -1
+                        canshoot = false
+                        timer.after(100, function () {
+                            canshoot = true
+                        })
+                    }
+                } else if (false) {
+                	
                 } else {
                 	
                 }
@@ -414,8 +503,6 @@ forever(function () {
     transformSprites.rotateSprite(f1pic, dg)
     transformSprites.rotateSprite(gsh18pic, dg)
     controller.moveSprite(person, speed, speed)
-    totalammotext.setText("Ammo:" + convertToText(total_ammo))
-    magammotext.setText("Mag:" + convertToText(mag_ammo))
 })
 forever(function () {
 	
