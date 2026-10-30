@@ -554,8 +554,8 @@ mag_ammo_text.setFlag(SpriteFlag.RelativeToCamera, true)
 total_ammo_text.setFlag(SpriteFlag.RelativeToCamera, true)
 mag_ammo_text.setPosition(3, 210)
 total_ammo_text.setPosition(3, 220)
-for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
-    tiles.setTileAt(value, assets.tile`myTile0`)
+for (let value of tiles.getTilesByType(assets.tile`transparency16`)) {
+    tiles.setTileAt(value, assets.tile`transparency16`)
     enemyrifleguy = sprites.create(img`
         .......................................................
         .......................................................
