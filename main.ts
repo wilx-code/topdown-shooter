@@ -471,7 +471,7 @@ person = sprites.create(img`
     `, SpriteKind.Player)
 person.z = 100
 toolbar.z = 200
-tiles.placeOnTile(person, tiles.getTileLocation(8, 8))
+tiles.placeOnTile(person, tiles.getTileLocation(4, 6))
 scene.cameraFollowSprite(person)
 mouse = sprites.create(img`
     . . . 1 . . . 
@@ -949,8 +949,8 @@ forever(function () {
         akpic.setFlag(SpriteFlag.Invisible, true)
         f1pic.setFlag(SpriteFlag.Invisible, true)
         gsh18pic.setFlag(SpriteFlag.Invisible, true)
-        mag_ammo_text.setText("Ammo:" + sprites.readDataNumber(person, "bullets"))
-        total_ammo_text.setText("Total Ammo:" + sprites.readDataNumber(person, "bullets"))
+        mag_ammo_text.setText("Ammo:" + sprites.readDataNumber(machinegun, "bullets"))
+        total_ammo_text.setText("Total Ammo:" + sprites.readDataNumber(machinegun, "bullets"))
     }
     if (reloading) {
         speed = 15
@@ -1237,47 +1237,50 @@ forever(function () {
                 }
             } else {
                 if (dg >= 315 || dg <= 45) {
-                    explosiongsprite = sprites.create(img`
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        . . . . . . . . . . . . . . . . 
-                        `, SpriteKind.nothin)
-                    spriteutils.placeAngleFrom(
-                    explosiongsprite,
-                    spriteutils.angleFrom(machinegun, mouse),
-                    35,
-                    rocketlauncherpic
-                    )
-                    extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 200, 20, 10)
-                    scene.cameraShake(5, 200)
-                    machinegunbullet = sprites.create(img`
-                        . . . . . 
-                        . . . . . 
-                        . f f f . 
-                        . . . . . 
-                        . . . . . 
-                        `, SpriteKind.machinegun_bullet)
-                    spriteutils.placeAngleFrom(
-                    machinegunbullet,
-                    spriteutils.angleFrom(machinegun, mouse),
-                    35,
-                    machinegun
-                    )
-                    spriteutils.setVelocityAtAngle(machinegunbullet, spriteutils.degreesToRadians(dg), 300)
-                    transformSprites.rotateSprite(machinegunbullet, dg)
+                    if (sprites.readDataNumber(machinegun, "bullets") > 0) {
+                        explosiongsprite = sprites.create(img`
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            `, SpriteKind.nothin)
+                        spriteutils.placeAngleFrom(
+                        explosiongsprite,
+                        spriteutils.angleFrom(machinegun, mouse),
+                        35,
+                        rocketlauncherpic
+                        )
+                        extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 200, 20, 10)
+                        scene.cameraShake(5, 200)
+                        machinegunbullet = sprites.create(img`
+                            . . . . . 
+                            . . . . . 
+                            . f f f . 
+                            . . . . . 
+                            . . . . . 
+                            `, SpriteKind.machinegun_bullet)
+                        spriteutils.placeAngleFrom(
+                        machinegunbullet,
+                        spriteutils.angleFrom(machinegun, mouse),
+                        35,
+                        machinegun
+                        )
+                        spriteutils.setVelocityAtAngle(machinegunbullet, spriteutils.degreesToRadians(dg), 300)
+                        transformSprites.rotateSprite(machinegunbullet, dg)
+                        sprites.changeDataNumberBy(machinegun, "bullets", -1)
+                    }
                 }
             }
         }
