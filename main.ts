@@ -1261,7 +1261,7 @@ forever(function () {
                     35,
                     rocketlauncherpic
                     )
-                    extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 200, 20, 30)
+                    extraEffects.createSpreadEffectOnAnchor(explosiongsprite, extraEffects.createFullPresetsSpreadEffectData(ExtraEffectPresetColor.Fire, ExtraEffectPresetShape.Explosion), 200, 20, 10)
                     scene.cameraShake(5, 200)
                     machinegunbullet = sprites.create(img`
                         . . . . . 
