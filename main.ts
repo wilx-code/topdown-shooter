@@ -24,7 +24,9 @@ sprites.onCreated(SpriteKind.shrap, function (sprite) {
     })
 })
 sprites.onOverlap(SpriteKind.shrap, SpriteKind.enemyrifleperson, function (sprite, otherSprite) {
-    sprites.destroy(sprite)
+    if (Math.percentChance(30)) {
+        sprites.destroy(sprite)
+    }
     sprites.changeDataNumberBy(otherSprite, "Hp", randint(-30, -50))
 })
 browserEvents.Four.onEvent(browserEvents.KeyEvent.Pressed, function () {
@@ -200,7 +202,9 @@ spriteutils.onSpriteKindUpdateInterval(SpriteKind.enemyrifleperson, 500, functio
     }
 })
 sprites.onOverlap(SpriteKind.rifleprojectile, SpriteKind.enemyrifleperson, function (sprite, otherSprite) {
-    sprites.destroy(sprite)
+    if (Math.percentChance(35)) {
+        sprites.destroy(sprite)
+    }
     sprites.changeDataNumberBy(otherSprite, "Hp", randint(-30, -50))
 })
 browserEvents.Three.onEvent(browserEvents.KeyEvent.Pressed, function () {
@@ -270,11 +274,19 @@ browserEvents.onMouseMove(function (x, y) {
     mouse.setPosition(scene.cameraProperty(CameraProperty.Left) + mouseX, scene.cameraProperty(CameraProperty.Top) + mouseY)
 })
 sprites.onOverlap(SpriteKind.pistolprojectile, SpriteKind.enemyrifleperson, function (sprite, otherSprite) {
-    sprites.destroy(sprite)
+    if (Math.percentChance(20)) {
+        sprites.destroy(sprite)
+    }
     sprites.changeDataNumberBy(otherSprite, "Hp", randint(-30, -50))
 })
 scene.onHitWall(SpriteKind.enemyriflebullet, function (sprite, location) {
     sprites.destroy(sprite)
+})
+sprites.onOverlap(SpriteKind.machinegun_bullet, SpriteKind.enemyrifleperson, function (sprite, otherSprite) {
+    if (Math.percentChance(40)) {
+        sprites.destroy(sprite)
+    }
+    sprites.changeDataNumberBy(otherSprite, "Hp", randint(-30, -50))
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.medpack, function (sprite, otherSprite) {
     subtraction = 200 - healthbar.value
@@ -1160,10 +1172,24 @@ forever(function () {
                                     }
                                     timer.background(function () {
                                         for (let value2 of spriteutils.getSpritesWithin(SpriteKind.Player, 60, grenad)) {
-                                            healthbar.value += 0 - 120 * (1 - spriteutils.distanceBetween(person, value2) / 60)
+                                            if (sight.isInSight(
+                                            value2,
+                                            grenad,
+                                            60,
+                                            false
+                                            )) {
+                                                healthbar.value += 0 - 120 * (1 - spriteutils.distanceBetween(person, value2) / 60)
+                                            }
                                         }
                                         for (let value22 of spriteutils.getSpritesWithin(SpriteKind.enemyrifleperson, 60, grenad)) {
-                                            sprites.destroy(value22)
+                                            if (sight.isInSight(
+                                            value22,
+                                            grenad,
+                                            60,
+                                            false
+                                            )) {
+                                                sprites.destroy(value22)
+                                            }
                                         }
                                         sprites.destroy(grenad)
                                     })
