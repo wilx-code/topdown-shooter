@@ -1401,56 +1401,58 @@ forever(function () {
                 rocketlauncheritem.z = 99
             } else if (Math.percentChance(15)) {
                 rifleammo = sprites.create(img`
-                    b b b b b b b b b b b b b b b b b b b b 
-                    b f f f f f f f f f f f f f f f f f f b 
-                    b f f f f f f b f f f f f f f f f f f b 
-                    b f f f f c c c c c c c f f f f f b f b 
-                    b f e e e e c c c c b c c c c c c c f b 
-                    b f e e e f b f f f e e f f f f f f f b 
-                    b f e f f f b b f f e e e f f f f f f b 
-                    b f f f f f b f f f f e e f f f f f f b 
-                    b f f f f f f f f f f f f f f f f f f b 
-                    b b b b b b b b b b b b b b b b b b b b 
+                    . . . . . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . . . . . 
+                    . . . . . . . b . . . . . . . . . . . . 
+                    . . . . . c c c c c c c . . . . . b . . 
+                    . . e e e e c c c c b c c c c c c c . . 
+                    . . e e e . b . . . e e . . . . . . . . 
+                    . . e . . . b b . . e e e . . . . . . . 
+                    . . . . . . b . . . . e e . . . . . . . 
+                    . . . . . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . . . . . 
                     `, SpriteKind.ammopickup)
                 tiles.placeOnTile(rifleammo, value3.tilemapLocation())
                 rifleammo.z = 99
             } else if (Math.percentChance(15)) {
                 grenadeammo = sprites.create(img`
-                    c c c c c c c c c c c c c c c c 
-                    c f f f f f f f f f f f f f f c 
-                    c f f f f f f f f b b f f f f c 
-                    c f f f f f b b b f f b f f f c 
-                    c f f f f b c c b c f b f f f c 
-                    c f f f f b b b b b b f f f f c 
-                    c f f f b c c c c b f c f f f c 
-                    c f f b c c c c c c b c f f f c 
-                    c f f b c c c c c c b f c f f c 
-                    c f f b f f f f f f b f f f f c 
-                    c f f b c c c c c c b f f f f c 
-                    c f f b c c c c c c b f f f f c 
-                    c f f f b c c c c b f f f f f c 
-                    c f f f f b b b b f f f f f f c 
-                    c f f f f f f f f f f f f f f c 
-                    c c c c c c c c c c c c c c c c 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . b b . . . . . 
+                    . . . . . f f f b . . b . . . . 
+                    . . . . . f c c b c . b . . . . 
+                    . . . . . f f f f b b . . . . . 
+                    . . . . f c c c c f . c . . . . 
+                    . . . f c c c c c c f c . . . . 
+                    . . . f c c c c c c f . c . . . 
+                    . . . f f f f f f f f . . . . . 
+                    . . . f c c c c c c f . . . . . 
+                    . . . f c c c c c c f . . . . . 
+                    . . . . f c c c c f . . . . . . 
+                    . . . . . f f f f . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
                     `, SpriteKind.ammopickup)
                 tiles.placeOnTile(grenadeammo, value3.tilemapLocation())
                 grenadeammo.z = 99
             } else if (Math.percentChance(15)) {
                 pistolammo = sprites.create(img`
-                    c c c c c c c c c c c c c c c c c 
-                    c f f f f f f f f f f f f f f f c 
-                    c f b b b b b b b b b b b b b f c 
-                    c f b b b b b b b b b b b b b f c 
-                    c f c c c c c c c c c c c c c f c 
-                    c f f c c c f b f f f f f f f f c 
-                    c f f c c c b f f f f f f f f f c 
-                    c f c c c c f f f f f f f f f f c 
-                    c f c c c c f f f f f f f f f f c 
-                    c f c c c f f f f f f f f f f f c 
-                    c f c c c f f f f f f f f f f f c 
-                    c f f f f f f f f f f f f f f f c 
-                    c f f f f f f f f f f f f f f f c 
-                    c c c c c c c c c c c c c c c c c 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . b b b b b b b b b b b b b . 
+                    . . b b b b b b b b b b b b b . 
+                    . . c c c c c c c c c c c c c . 
+                    . . . c c c . b f . . . . . . . 
+                    . . . c c c b . f . . . . . . . 
+                    . . c c c c f f . . . . . . . . 
+                    . . c c c c . . . . . . . . . . 
+                    . . c c c . . . . . . . . . . . 
+                    . . c c c . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
+                    . . . . . . . . . . . . . . . . 
                     `, SpriteKind.ammopickup)
                 tiles.placeOnTile(pistolammo, value3.tilemapLocation())
                 pistolammo.z = 99
