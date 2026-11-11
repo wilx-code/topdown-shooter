@@ -18,6 +18,9 @@ namespace SpriteKind {
     export const machine_gun = SpriteKind.create()
     export const machinegun_bullet = SpriteKind.create()
 }
+scene.onHitWall(SpriteKind.machinegun_bullet, function (sprite, location) {
+    sprites.destroy(sprite)
+})
 sprites.onCreated(SpriteKind.shrap, function (sprite) {
     timer.after(randint(0, 750), function () {
         sprites.destroy(sprite)
