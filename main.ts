@@ -410,6 +410,80 @@ miniMenu.onButtonPressed(Menu, miniMenu.Button.A, function (selection, selectedI
     if (selectedIndex == 1) {
         miniMenu.close(Menu)
         tiles.setCurrentTilemap(tilemap`level3`)
+        scene.runTileAnimation(
+        assets.tile`myTile5`,
+        [img`
+            . . . . . . . . . . . . . . . . 
+            . 2 . . . 2 . . . 2 . . . . . . 
+            . . 2 . . . 2 . . . 2 . . . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            . . 2 . . . 2 . . . 2 . . . . . 
+            . 2 . . . 2 . . . 2 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . 2 . . . 2 . . . 2 . . . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            . . 2 . . . 2 . . . 2 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . . . 2 . . . 2 . . . 2 . . 
+            . . . . . 2 . . . 2 . . . 2 . . 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . . 
+            . . . . . . . . . . . . . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . . . 2 . . . 2 . . . 2 . . 
+            . . . . . . 2 . . . 2 . . . 2 . 
+            . . . . . . 2 . . . 2 . . . 2 . 
+            . . . . . 2 . . . 2 . . . 2 . . 
+            . . . . 2 . . . 2 . . . 2 . . . 
+            . . . 2 . . . 2 . . . 2 . . . 2 
+            . . 2 . . . 2 . . . 2 . . . 2 . 
+            . 2 . . . 2 . . . 2 . . . 2 . . 
+            2 . . . 2 . . . 2 . . . 2 . . . 
+            . . . . . . . . . . . . . . . . 
+            `],
+        100,
+        TileAnimationOrder.LoopSync
+        )
         item = Inventory.create_item("AK-47", img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -820,7 +894,7 @@ miniMenu.onButtonPressed(Menu, miniMenu.Button.A, function (selection, selectedI
             sprites.setDataNumber(enemyrifleguy, "bulletsLeft", 30)
             sprites.setDataBoolean(enemyrifleguy, "reloading", false)
         }
-        story.printText("Use WASD to move", 160, 110)
+        story.printText("Use WASD to move to the purple square", mouse.x, mouse.y)
     } else {
         miniMenu.close(Menu)
         tiles.setCurrentTilemap(tilemap`level1`)
@@ -1910,6 +1984,23 @@ forever(function () {
                 	
                 }
             }
+        }
+    }
+})
+forever(function () {
+    if (!(inselection)) {
+        if (person.tileKindAt(TileDirection.Center, assets.tile`myTile6`)) {
+            tiles.setTileAt(tiles.getTileLocation(10, 2), assets.tile`myTile0`)
+            story.printText("Hold down shift and scroll the mouse wheel forward", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("Move your mouse onto the enemy that is directly to your right or in line with the enemy", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("Hold down the left mouse button to fire", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("When the \"mag ammo\" count becomes 0, hit R to reload", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("You can scroll the mouse wheel backwards to decrease the range", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("Releasing shift will close the scope", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("Now hit the 2 button on your keyboard, which will switch to your secondary weapon", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("The pistol's mechanics work the same as the primary weapon", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("Now hit the 3 button, which will switch to your grenades. Aim with the scope and line it up before left clicking", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("It will have a 5 second fuse before exploding", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
         }
     }
 })

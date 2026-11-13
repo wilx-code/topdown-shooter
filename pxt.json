@@ -18,7 +18,8 @@
         "arcade-mini-menu": "github:riknoll/arcade-mini-menu#v0.1.0",
         "animation": "*",
         "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
-        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3"
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
+        "Tile Animator": "github:LautaroCeballos/Tiles-Animator#2e87fd85737dcf61210ea9004eac2167c1e59fb6"
     },
     "files": [
         "main.blocks",
