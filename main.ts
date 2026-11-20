@@ -668,7 +668,7 @@ spriteutils.onSpriteKindUpdateInterval(SpriteKind.enemyrifleperson, 500, functio
                     25,
                     sprite
                     )
-                    spriteutils.setVelocityAtAngle(enemyrifleprojectile, spriteutils.angleFrom(sprite, person), 500)
+                    spriteutils.setVelocityAtAngle(enemyrifleprojectile, spriteutils.angleFrom(sprite, person) + randint(spriteutils.degreesToRadians(-10), spriteutils.degreesToRadians(10)), 500)
                     transformSprites.rotateSprite(enemyrifleprojectile, spriteutils.radiansToDegrees(spriteutils.angleFrom(sprite, person)))
                     sprites.changeDataNumberBy(sprite, "bulletsLeft", -1)
                     explosiongsprite = sprites.create(img`
@@ -1439,9 +1439,9 @@ forever(function () {
                                     `, SpriteKind.rifleprojectile)
                                 spriteutils.placeAngleFrom(
                                 rifleprojectile2,
-                                spriteutils.angleFrom(akpic, mouse),
-                                14,
-                                akpic
+                                spriteutils.angleFrom(person, mouse),
+                                0,
+                                person
                                 )
                                 transformSprites.rotateSprite(rifleprojectile2, spriteutils.radiansToDegrees(spriteutils.angleFrom(akpic, mouse)) + randint(-1, 1))
                                 spriteutils.setVelocityAtAngle(rifleprojectile2, spriteutils.angleFrom(akpic, mouse) + spriteutils.degreesToRadians(randint(-1, 1)), 300)
@@ -1493,9 +1493,9 @@ forever(function () {
                                     `, SpriteKind.pistolprojectile)
                                 spriteutils.placeAngleFrom(
                                 pistolprojectile2,
-                                spriteutils.angleFrom(gsh18pic, mouse),
-                                14,
-                                gsh18pic
+                                spriteutils.angleFrom(person, mouse),
+                                0,
+                                person
                                 )
                                 transformSprites.rotateSprite(pistolprojectile2, spriteutils.radiansToDegrees(spriteutils.angleFrom(gsh18pic, mouse)) + randint(-3.5, 3.5))
                                 spriteutils.setVelocityAtAngle(pistolprojectile2, spriteutils.angleFrom(gsh18pic, mouse) + spriteutils.degreesToRadians(randint(-3.5, 3.5)), 300)
