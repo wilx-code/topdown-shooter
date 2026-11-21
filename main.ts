@@ -1788,7 +1788,7 @@ forever(function () {
         for (let value3 of sprites.allOfKind(SpriteKind.enemyrifleperson)) {
             if (sprites.readDataNumber(value3, "Hp") <= 0) {
                 sprites.destroy(value3)
-                if (Math.percentChance(10)) {
+                if (Math.percentChance(5)) {
                     healthpack = sprites.create(img`
                         . . . . . . . . . . . . . . . . 
                         . . . . 1 1 1 1 1 1 1 1 . . . . 
@@ -1809,7 +1809,7 @@ forever(function () {
                         `, SpriteKind.medpack)
                     tiles.placeOnTile(healthpack, value3.tilemapLocation())
                     healthpack.z = 99
-                } else if (Math.percentChance(10)) {
+                } else if (Math.percentChance(5)) {
                     rocketlauncheritem = sprites.create(img`
                         ......................................
                         ......................................
@@ -1852,7 +1852,7 @@ forever(function () {
                         `, SpriteKind.rocketitem)
                     tiles.placeOnTile(rocketlauncheritem, value3.tilemapLocation())
                     rocketlauncheritem.z = 99
-                } else if (Math.percentChance(15)) {
+                } else if (Math.percentChance(7.5)) {
                     rifleammo = sprites.create(img`
                         . . . . . . . . . . . . . . . . . . . . 
                         . . . . . . . . . . . . . . . . . . . . 
@@ -1867,7 +1867,7 @@ forever(function () {
                         `, SpriteKind.ammopickup)
                     tiles.placeOnTile(rifleammo, value3.tilemapLocation())
                     rifleammo.z = 99
-                } else if (Math.percentChance(15)) {
+                } else if (Math.percentChance(7.5)) {
                     grenadeammo = sprites.create(img`
                         . . . . . . . . . . . . . . . . 
                         . . . . . . . . . . . . . . . . 
@@ -1888,7 +1888,7 @@ forever(function () {
                         `, SpriteKind.ammopickup)
                     tiles.placeOnTile(grenadeammo, value3.tilemapLocation())
                     grenadeammo.z = 99
-                } else if (Math.percentChance(15)) {
+                } else if (Math.percentChance(7.5)) {
                     pistolammo = sprites.create(img`
                         . . . . . . . . . . . . . . . . 
                         . . . . . . . . . . . . . . . . 
