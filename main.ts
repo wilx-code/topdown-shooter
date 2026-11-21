@@ -735,7 +735,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.ammopickup, function (sprite, ot
         rifletotal_ammo += randint(30, 60)
         sprites.destroy(otherSprite)
     } else if (otherSprite == pistolammo) {
-        pistoltotal_ammo += randint(30, 60)
+        pistoltotal_ammo += randint(10, 20)
         sprites.destroy(otherSprite)
     } else if (otherSprite == grenadeammo) {
         grenades += randint(1, 3)
