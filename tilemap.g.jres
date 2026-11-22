@@ -120,7 +120,7 @@
         "displayName": "myTile12"
     },
     "tile20": {
-        "data": "hwQQABAAAADw3f3d3d/fD/Dd/d3d/90P8N393d3f/Q/w3f3d/d3fD/Dd/d39/d0P8N393d/93Q/w3f393d/dD/Dd/f39390P8N3939/f3Q/w3d/d39/dD/Dd3/3d390P8P3d393f3Q/w/d3f3d/dD/Df/d3d390P8N3/3d3f3Q/w/f3d3d/dDw==",
+        "data": "hwQQABAAAADw3f3d3/3fD/Dd/d3f/d8P8N393d/93w/w3f3d//3fD/Dd/d3//d8P8N393f/93w/w3f39/f3fD/Dd/f39/d8P8N3939/93w/w3d/d3/3fD/Dd3/3f/d8P8P3d39/93w/w/d3f3/3fD/Df/d3f/d8P8N3/3d/93w/w/f3d3/3fDw==",
         "mimeType": "image/x-mkcd-f4",
         "tilemapTile": true,
         "displayName": "fake"
@@ -161,7 +161,9 @@
             "myTiles.tile5",
             "myTiles.tile12",
             "myTiles.tile13",
-            "sprites.castle.tileGrass2"
+            "sprites.castle.tileGrass2",
+            "myTiles.tile15",
+            "myTiles.tile20"
         ],
         "displayName": "level3"
     },
