@@ -21,6 +21,9 @@ namespace SpriteKind {
 scene.onHitWall(SpriteKind.machinegun_bullet, function (sprite, location) {
     sprites.destroy(sprite)
 })
+function tiledistance (x: number, y: number, col: number, row: number) {
+    return Math.sqrt((x - (col * 16 + 8)) ** 2 + (y - (row * 16 + 8)) ** 2)
+}
 sprites.onCreated(SpriteKind.shrap, function (sprite) {
     timer.after(randint(0, 750), function () {
         sprites.destroy(sprite)
@@ -547,17 +550,6 @@ function Generate_game () {
     total_ammo_text.setPosition(3, 220)
     inselection = false
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.rocketitem, function (sprite, otherSprite) {
-    if (rocketcanshoot) {
-        rockets += 3
-        sprites.destroy(otherSprite)
-    } else {
-        sprites.destroy(otherSprite)
-        toolbarlist.push(item4)
-        rocketcanshoot = true
-        toolbar.set_items(toolbarlist)
-    }
-})
 scene.onHitWall(SpriteKind.pistolprojectile, function (sprite, location) {
     sprites.destroy(sprite)
 })
@@ -730,20 +722,6 @@ browserEvents.Three.onEvent(browserEvents.KeyEvent.Pressed, function () {
 statusbars.onZero(StatusBarKind.Health, function (status) {
     game.gameOver(false)
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.ammopickup, function (sprite, otherSprite) {
-    if (otherSprite == rifleammo) {
-        rifletotal_ammo += randint(30, 60)
-        sprites.destroy(otherSprite)
-    } else if (otherSprite == pistolammo) {
-        pistoltotal_ammo += randint(10, 20)
-        sprites.destroy(otherSprite)
-    } else if (otherSprite == grenadeammo) {
-        grenades += randint(1, 3)
-        sprites.destroy(otherSprite)
-    } else {
-    	
-    }
-})
 browserEvents.R.onEvent(browserEvents.KeyEvent.Pressed, function () {
     if (!(browserEvents.MouseLeft.isPressed())) {
         if (!(reloading)) {
@@ -805,16 +783,173 @@ sprites.onOverlap(SpriteKind.machinegun_bullet, SpriteKind.enemyrifleperson, fun
     }
     sprites.changeDataNumberBy(otherSprite, "Hp", randint(-30, -50))
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.medpack, function (sprite, otherSprite) {
-    subtraction = 200 - healthbar.value
-    if (subtraction > 60) {
-        healthbar.value += randint(60, 80)
-    } else {
-        healthbar.value += subtraction
-    }
-    sprites.destroy(otherSprite)
-})
 browserEvents.F.onEvent(browserEvents.KeyEvent.Pressed, function () {
+    for (let value222222222 of spriteutils.getSpritesWithin(SpriteKind.medpack, 25, person)) {
+        subtraction = 200 - healthbar.value
+        if (subtraction > 60) {
+            healthbar.value += randint(60, 80)
+        } else {
+            healthbar.value += subtraction
+        }
+        sprites.destroy(value222222222)
+    }
+    for (let value2222222 of spriteutils.getSpritesWithin(SpriteKind.ammopickup, 25, person)) {
+        if (value2222222 == rifleammo) {
+            rifletotal_ammo += randint(30, 60)
+            sprites.destroy(value2222222)
+        } else if (value2222222 == pistolammo) {
+            pistoltotal_ammo += randint(10, 20)
+            sprites.destroy(value2222222)
+        } else if (value2222222 == grenadeammo) {
+            grenades += randint(1, 3)
+            sprites.destroy(value2222222)
+        } else {
+        	
+        }
+    }
+    for (let value22222222 of spriteutils.getSpritesWithin(SpriteKind.rocketitem, 25, person)) {
+        if (rocketcanshoot) {
+            rockets += 3
+            sprites.destroy(value22222222)
+        } else {
+            sprites.destroy(value22222222)
+            toolbarlist.push(item4)
+            rocketcanshoot = true
+            toolbar.set_items(toolbarlist)
+        }
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile8`)) {
+        if (tiledistance(person.x, person.y, value.column, value.row) <= 25) {
+            tiles.setTileAt(value, assets.tile`fake`)
+            timer.after(1000, function () {
+                tiles.setTileAt(value.getNeighboringLocation(CollisionDirection.Left), assets.tile`myTile10`)
+                tiles.setTileAt(value, assets.tile`myTile12`)
+                tiles.setTileAt(value.getNeighboringLocation(CollisionDirection.Right), assets.tile`myTile11`)
+                if (Math.percentChance(40)) {
+                    healthpack = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . 1 1 1 1 1 1 1 1 . . . . 
+                        . . . . 1 1 1 1 1 1 1 1 . . . . 
+                        . . . . 1 1 . . . . 1 1 . . . . 
+                        . . . . 1 1 . . . . 1 1 . . . . 
+                        . . . . 1 1 . . . . 1 1 . . . . 
+                        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 2 2 2 2 2 2 2 2 1 1 1 1 
+                        1 1 1 1 2 2 2 2 2 2 2 2 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 
+                        1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+                        `, SpriteKind.medpack)
+                    tiles.placeOnTile(healthpack, value)
+                    healthpack.z = 99
+                } else if (Math.percentChance(30)) {
+                    rocketlauncheritem = sprites.create(img`
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        fff...................bbbb.........fff
+                        fbbfcccccccccfccccccfcccccfccccccccfbf
+                        fbbfcccccccccfcccbbbbbbcccfccccccccfbf
+                        fbbfcccccccccfccccccfcccccfccccccccfbf
+                        fbbfcccccccccfccccccfcccccfccccccccfbf
+                        fff...............cbc.f............fff
+                        ..................cbcff...............
+                        ..................cbc.................
+                        ..................ccc.................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        ......................................
+                        `, SpriteKind.rocketitem)
+                    tiles.placeOnTile(rocketlauncheritem, value)
+                    rocketlauncheritem.z = 99
+                } else if (Math.percentChance(10)) {
+                    rifleammo = sprites.create(img`
+                        . . . . . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . . . . . 
+                        . . . . . . . b . . . . . . . . . . . . 
+                        . . . . . c c c c c c c . . . . . b . . 
+                        . . e e e e c c c c b c c c c c c c . . 
+                        . . e e e . b . . . e e . . . . . . . . 
+                        . . e . . . b b . . e e e . . . . . . . 
+                        . . . . . . b . . . . e e . . . . . . . 
+                        . . . . . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . . . . . 
+                        `, SpriteKind.ammopickup)
+                    tiles.placeOnTile(rifleammo, value)
+                    rifleammo.z = 99
+                } else if (Math.percentChance(10)) {
+                    grenadeammo = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . b b . . . . . 
+                        . . . . . f f f b . . b . . . . 
+                        . . . . . f c c b c . b . . . . 
+                        . . . . . f f f f b b . . . . . 
+                        . . . . f c c c c f . c . . . . 
+                        . . . f c c c c c c f c . . . . 
+                        . . . f c c c c c c f . c . . . 
+                        . . . f f f f f f f f . . . . . 
+                        . . . f c c c c c c f . . . . . 
+                        . . . f c c c c c c f . . . . . 
+                        . . . . f c c c c f . . . . . . 
+                        . . . . . f f f f . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        `, SpriteKind.ammopickup)
+                    tiles.placeOnTile(grenadeammo, value)
+                    grenadeammo.z = 99
+                } else if (Math.percentChance(10)) {
+                    pistolammo = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . b b b b b b b b b b b b b . 
+                        . . b b b b b b b b b b b b b . 
+                        . . c c c c c c c c c c c c c . 
+                        . . . c c c . b f . . . . . . . 
+                        . . . c c c b . f . . . . . . . 
+                        . . c c c c f f . . . . . . . . 
+                        . . c c c c . . . . . . . . . . 
+                        . . c c c . . . . . . . . . . . 
+                        . . c c c . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . . . . . . . . . . . 
+                        `, SpriteKind.ammopickup)
+                    tiles.placeOnTile(pistolammo, value)
+                    pistolammo.z = 99
+                }
+            })
+        }
+    }
     for (let value22222 of sprites.allOfKind(SpriteKind.machine_gun)) {
         if (spriteutils.distanceBetween(person, value22222) <= 10) {
             if (sprites.readDataBoolean(person, "usingMg") == true) {
@@ -852,8 +987,6 @@ browserEvents.Five.onEvent(browserEvents.KeyEvent.Pressed, function () {
 scene.onHitWall(SpriteKind.rifleprojectile, function (sprite, location) {
     sprites.destroy(sprite)
 })
-let rocketlauncheritem: Sprite = null
-let healthpack: Sprite = null
 let machinegunbullet: Sprite = null
 let dg = 0
 let rocket: Sprite = null
@@ -862,15 +995,17 @@ let pistolprojectile2: Sprite = null
 let rifleprojectile2: Sprite = null
 let dy = 0
 let dx = 0
+let rocketlauncheritem: Sprite = null
+let healthpack: Sprite = null
+let grenadeammo: Sprite = null
+let pistolammo: Sprite = null
+let rifleammo: Sprite = null
 let subtraction = 0
 let mouseY = 0
 let mouseX = 0
 let pistolsubtraction = 0
 let riflesubtraction = 0
 let reloading = false
-let grenadeammo: Sprite = null
-let pistolammo: Sprite = null
-let rifleammo: Sprite = null
 let enemyrifleprojectile: Sprite = null
 let zoom = 0
 let shrapnel: Sprite = null
@@ -1561,9 +1696,9 @@ forever(function () {
                                 14,
                                 f1pic
                                 )
-                                spriteutils.setVelocityAtAngle(grenad, spriteutils.angleFrom(f1pic, mouse), 120)
-                                grenad.fx = 50
-                                grenad.fy = 50
+                                spriteutils.setVelocityAtAngle(grenad, spriteutils.angleFrom(f1pic, mouse), 135)
+                                grenad.fx = 45
+                                grenad.fy = 45
                                 grenades += -1
                                 grenadecanthrow = false
                                 timer.after(3000, function () {
@@ -1933,8 +2068,9 @@ forever(function () {
             story.printText("The pistol's mechanics work the same as the primary weapon", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
             story.printText("Now hit the 3 button, which will switch to your grenades. Aim with the scope and line it up before left clicking", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
             story.printText("It will have a 5 second fuse before exploding. Throw the grenade at the last enemy left.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
-            story.printText("After that enemy has been destroyed, move over to the items dropped on the ground.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("After that enemy has been destroyed, move over to the items dropped on the ground. Use F to pick them up.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
             story.printText("Certain items will refill your current weapons' ammo while others may heal or grant new weapons.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
+            story.printText("There will be machine guns and other objects on the map such as crates. Use the button F to interact with them.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
             timer.after(1000, function () {
                 story.printText("Congratulations! You have finished the tutorial.", scene.cameraProperty(CameraProperty.Left) + 160, scene.cameraProperty(CameraProperty.Top) + 110, 15, 1, story.TextSpeed.VeryFast)
                 inselection = true
